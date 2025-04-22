@@ -346,6 +346,40 @@ live_design! {
                     }
                 }
 
+                <ZooHeader> {
+                    title = {text: "<Label>"}
+                    <ZooDesc> {text:"Default single line textbox"}
+                    <ZooGroup> {
+                        <Label> { text: "This is a small line of text" }
+                    }
+                    <ZooGroup> {
+                        <Label> {
+                            draw_text: {
+                                color: #fff,
+                                text_style: {
+                                    font: {path: dep("crate://self/resources/XITSOneText-BoldItalic.ttf")},
+                                    font_size: 20,
+                                }
+                            }
+                            text: "You can style text using colors and fonts"
+                        }
+                    }
+                    <ZooGroup> {
+                        <Label> {
+                            draw_text: {
+                                fn get_color(self) ->vec4{
+                                    return mix((THEME_COLOR_MAKEPAD), (THEME_COLOR_U_HIDDEN), self.pos.x)
+                                }
+                                color: (THEME_COLOR_MAKEPAD)
+                                text_style: {
+                                    font_size: 40.,
+                                }
+                            }
+                            text: "OR EVEN SOME PIXELSHADERS"
+                        }
+                    }
+                }
+
 
             }
         }
