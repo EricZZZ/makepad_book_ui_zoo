@@ -418,6 +418,22 @@ live_design! {
                     }
 
                 }
+
+                <ZooHeader> {
+                    title = {text:"<DropDown>"}
+                    <ZooDesc> {text:"DropDown control. This control currently needs to be databound which needs some plumbing. In this sample there is a binding context struct in the main app struct - which gets bound on app start - and updated during handle_actions."}
+                    <ZooGroup> {
+                        dropdown = <DropDown> {
+                            labels: ["Value One", "Value Two", "Thrice", "Fourth Value", "Option E", "Hexagons"],
+                            values: [ValueOne, ValueTwo, Thrice, FourthValue, OptionE, Hexagons]
+                        }
+                    }
+                }
+                <ZooHeader> {
+                    title = {text:"Place holder"}
+                    <ZooDesc> {text:"Place holder for drop down"}
+
+                }
             }
 
         }
@@ -467,6 +483,12 @@ impl MatchEvent for App {
             self.counter += 1;
             let btn = self.ui.button(id!(iconbutton));
             btn.set_text(cx, &format!("Icon button clicked: {}", self.counter));
+        }
+
+        if let Some(selected) = self.ui.drop_down(id!(dropdown)).changed(actions) {
+            log!("DROPDOWN SELECTED index {}", selected);
+            let selected_label = self.ui.drop_down(id!(dropdown)).selected_label();
+            log!("DROPDOWN SELECTED label {}", selected_label);
         }
     }
 }
