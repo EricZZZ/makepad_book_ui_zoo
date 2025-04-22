@@ -13,6 +13,17 @@ live_design! {
     DEMO_COLOR_2 = #0f8
     DEMO_COLOR_3 = #80f
 
+    ZooGroup = <RoundedView> {
+        height: Fit,width: Fill,
+        flow: Right,
+        align: {x: 0.0, y: 0.5},
+        margin: 0.,
+        show_bg: false;
+        draw_bg: {
+            color: (COLOR_CONTAINER)
+        }
+    }
+
     ZooBlock = <RoundedView> {
         width: 50.,height: 50.
         margin: 0.,
@@ -242,6 +253,100 @@ live_design! {
                         }
                     }
                 }
+
+                <ZooHeader> {
+                    title = {text: "<TextInput> with interaction"}
+                    padding: 10.
+                    <View> {
+                        height: Fit, width: Fill,
+                        spacing: (THEME_SPACE_2),
+                        textalreadyfilled = <TextInput> {
+                            text: "text here"
+                        }
+                        simpletextinput = <TextInput> {
+                            width: Fill,
+                            empty_message: "Enter text here"
+                        }
+                        simpletextinput_outputbox = <P> {
+                            text: "Output"
+                        }
+                    }
+                }
+
+                <ZooHeader> {
+                    title = {text:"<Button>"}
+                    <ZooDesc> {text:"A small clickable region"}
+                    <ZooGroup> {
+                        flow: Down,
+                        width: Fill, height: Fit,
+                        align: { x: 0.0, y: 0.5},
+                        spacing: 10.,
+
+                        <H4> { text: "Default" }
+                        <Label> { text: "<Button>" }
+                        basicbutton = <Button> { text: "I can be clicked" }
+
+                        <H4> { text: "Button with an icon"}
+                        <Label> { text: "<ButtonIcon>"}
+                        iconbutton = <ButtonIcon> {
+                            draw_icon: {
+                                color: #ff0,
+                                svg_file: dep("crate://self/resources/Icon_Favorite.svg"),
+                            }
+                            text: "I can have a icon!"
+                        }
+
+                        <H4> { text: "Flat Mode"}
+                        <Label> { text: "<ButtonFlat>"}
+                        <View> {
+                            flow: Right,
+                            align: { x: 0.0, y: 0.5},
+                            width: Fill, height: Fit,
+                            <ButtonFlat> {
+                                draw_icon: {
+                                    color: #f00,
+                                    svg_file: dep("crate://self/resources/Icon_Favorite.svg"),
+                                }
+                                text: "I can have a lovely icon!"
+                            }
+
+                            <ButtonFlat> {
+                                draw_icon: {
+                                    svg_file: dep("crate://self/resources/Icon_Favorite.svg"),
+                                }
+                            }
+
+                            <ButtonFlat> {
+                                flow: Down,
+                                icon_walk: { width: 15. }
+                                draw_icon: {
+                                    svg_file: dep("crate://self/resources/Icon_Favorite.svg"),
+                                }
+                                text: "Vertical Layout"
+                            }
+                        }
+
+                        <H4> { text: "Freely styled button"}
+                        <Label> { text: "<Button>"}
+                        styledbutton = <Button> {
+                            draw_bg: {
+                                fn pixel(self) -> vec4 {
+                                    return (THEME_COLOR_MAKEPAD) + self.pressed * vec4(1., 1., 1., 1.)
+                                }
+                            }
+                            draw_text: {
+                                fn get_color(self) -> vec4 {
+                                    return (THEME_COLOR_U_5) - vec4(0., 0.1, 0.4, 0.) * self.hover - vec4(1., 1., 1., 0.);
+                                }
+                            }
+                            text: "I can be styled!"
+                        }
+
+
+                    }
+                }
+
+
             }
         }
     }
@@ -251,6 +356,8 @@ live_design! {
 pub struct App {
     #[live]
     ui: WidgetRef,
+    #[rust]
+    counter: usize,
 }
 
 impl LiveRegister for App {
@@ -260,8 +367,41 @@ impl LiveRegister for App {
     }
 }
 
+impl MatchEvent for App {
+    fn handle_actions(&mut self, cx: &mut Cx, actions: &Actions) {
+        if let Some(txt) = self.ui.text_input(id!(simpletextinput)).changed(actions) {
+            log!("TEXTBOX CHANGED {}", self.counter); // output to console
+            self.counter += 1;
+            let lbl = self.ui.label(id!(simpletextinput_outputbox));
+            lbl.set_text(cx, &format!("{} {}", self.counter, txt));
+        }
+
+        if self.ui.button(id!(basicbutton)).clicked(actions) {
+            log!("BASIC BUTTON CLICKED {}", self.counter);
+            self.counter += 1;
+            let btn = self.ui.button(id!(basicbutton));
+            btn.set_text(cx, &format!("Clicky clicky! {}", self.counter));
+        }
+
+        if self.ui.button(id!(styledbutton)).clicked(actions) {
+            log!("STYLED BUTTON CLICKED {}", self.counter);
+            self.counter += 1;
+            let btn = self.ui.button(id!(styledbutton));
+            btn.set_text(cx, &format!("Styled button clicked: {}", self.counter));
+        }
+
+        if self.ui.button(id!(iconbutton)).clicked(actions) {
+            log!("ICON BUTTON CLICKED {}", self.counter);
+            self.counter += 1;
+            let btn = self.ui.button(id!(iconbutton));
+            btn.set_text(cx, &format!("Icon button clicked: {}", self.counter));
+        }
+    }
+}
+
 impl AppMain for App {
     fn handle_event(&mut self, cx: &mut Cx, event: &Event) {
+        self.match_event(cx, event);
         self.ui.handle_event(cx, event, &mut Scope::empty());
     }
 }
