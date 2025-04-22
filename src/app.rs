@@ -531,6 +531,205 @@ live_design! {
                         }
                     }
                 }
+
+                <ZooHeader> {
+                    title = {text:"<CheckBox>"}
+                    <ZooDesc> {text:"Checkbox"}
+                    <ZooGroup> {
+                        height: Fit
+                        spacing: (THEME_SPACE_2)
+                        flow: Down,
+                        <H4> { text: "Output demo"}
+                        <View> {
+                            height: Fit
+                            flow: Right
+                            align: { x: 0.0, y: 0.5}
+                            simplecheckbox = <CheckBox> {text:"Check me out!"}
+                            simplecheckbox_output = <Label> { text:"hmm" }
+                        }
+                        <H4> { text: "Standard Mode"}
+                        <View> {
+                            height: Fit
+                            flow: Right
+                            spacing: (THEME_SPACE_1)
+                            align: { x: 0.0, y: 0.5}
+                            <CheckBox> {text:"Check me out!"}
+                            <CheckBox> {text:"Check me out!"}
+                            <CheckBox> {text:"Check me out!"}
+                        }
+                        <H4> { text: "Toggle Mode"}
+                        <View> {
+                            height: Fit
+                            flow: Right
+                            spacing: (THEME_SPACE_1)
+                            align: { x: 0.0, y: 0.5}
+                            <CheckBoxToggle> {text:"Check me out!" }
+                            <CheckBoxToggle> {text:"Check me out!" }
+                            <CheckBoxToggle> {text:"Check me out!" }
+                        }
+
+                        <H4> { text: "Custom Icon Mode"}
+                        <View> {
+                            height: Fit
+                            flow: Right
+                            spacing: (THEME_SPACE_1)
+                            align: { x: 0.0, y: 0.5}
+                            <CheckBoxCustom> {
+                                text:"Check me out!"
+                                draw_check: { check_type: None }
+                                draw_icon: {
+                                    color_active: #f00,
+                                    svg_file: dep("crate://self/resources/Icon_Favorite.svg"),
+                                }
+                            }
+                            <CheckBoxCustom> {
+                                text:"Check me out!"
+                                draw_check: { check_type: None }
+                                draw_icon: {
+                                    svg_file: dep("crate://self/resources/Icon_Favorite.svg"),
+                                }
+                            }
+                        }
+                    }
+                }
+
+                <ZooHeader> {
+                    title = {text:"<RadioButton>"}
+                    <ZooDesc> {text:"Todo: List the different radio button templates."}
+                    <ZooGroup> {
+                        flow: Down,
+                        spacing: (THEME_SPACE_2)
+                        <H4> { text: "Default"}
+                        <View> {
+                            height: Fit
+                            flow: Right
+                            align: { x: 0.0, y: 0.5 }
+                            radios_demo = <View> {
+                                spacing: (THEME_SPACE_2)
+                                width: Fit, height: Fit,
+                                radio1 = <RadioButton> { text: "Option 1" }
+                                radio2 = <RadioButton> { text: "Option 2" }
+                                radio3 = <RadioButton> { text: "Option 3" }
+                                radio4 = <RadioButton> { text: "Option 4" }
+                            }
+                        }
+
+                        <H4> { text: "Custom Radios"}
+                        <View> {
+                            height: Fit
+                            flow: Right
+                            align: { x: 0.0, y: 0.5 }
+                            iconradios_demo = <View> {
+                                width: Fit, height: Fit,
+                                spacing: (THEME_SPACE_2)
+                                flow: Down,
+
+                                radio1 = <RadioButtonCustom> {
+                                    text: "Option 1"
+                                    icon_walk: {
+                                        width: 12.5, height: Fit,
+                                    }
+                                    draw_icon: {
+                                        svg_file: dep("crate://self/resources/Icon_Favorite.svg"),
+                                    }
+                                }
+                                radio2 = <RadioButtonCustom> {
+                                    text: "Option 2"
+                                    icon_walk: {
+                                        width: 12.5, height: Fit,
+                                    }
+                                    draw_icon: {
+                                        color_active: #0f0,
+                                        svg_file: dep("crate://self/resources/Icon_Favorite.svg"),
+                                    }
+                                }
+                                radio3 = <RadioButtonCustom> {
+                                    text: "Option 3"
+                                    icon_walk: {
+                                        width: 12.5, height: Fit,
+                                    }
+                                    draw_icon: {
+                                        color_active: #0ff,
+                                        svg_file: dep("crate://self/resources/Icon_Favorite.svg"),
+                                    }
+                                }
+                                radio4 = <RadioButtonCustom> {
+                                    text: "Option 4"
+                                    icon_walk: {
+                                        width: 12.5, height: Fit,
+                                    }
+                                    draw_icon: {
+                                        color_active: #f00,
+                                        svg_file: dep("crate://self/resources/Icon_Favorite.svg"),
+                                    }
+                                }
+                            }
+                        }
+
+                        <H4> { text: "Text only"}
+                        <View> {
+                            height: Fit
+                            flow: Right
+                            align: { x: 0.0, y: 0.5 }
+                            textonlyradios_demo = <View> {
+                                width: Fit, height: Fit,
+                                flow: Right,
+                                spacing: (THEME_SPACE_2)
+                                radio1 = <RadioButtonTextual> { text: "Option 1" }
+                                radio2 = <RadioButtonTextual> { text: "Option 2" }
+                                radio3 = <RadioButtonTextual> { text: "Option 3" }
+                                radio4 = <RadioButtonTextual> { text: "Option 4" }
+                            }
+                        }
+
+
+                        <H4> { text: "Button Group"}
+                        <ButtonGroup> {
+                            height: Fit
+                            flow: Right
+                            align: { x: 0.0, y: 0.5 }
+                            radiotabs_demo = <View> {
+                                width: Fit, height: Fit,
+                                radio1 = <RadioButtonTab> { text: "Option 1" }
+                                radio2 = <RadioButtonTab> { text: "Option 2" }
+                                radio3 = <RadioButtonTab> { text: "Option 3" }
+                                radio4 = <RadioButtonTab> { text: "Option 4" }
+                            }
+                        }
+
+                        <H4> { text: "Media"}
+                        <View> {
+                            height: Fit
+                            flow: Right
+                            align: { x: 0.0, y: 0.5 }
+                            mediaradios_demo = <View> {
+                                width: Fit, height: Fit,
+                                flow: Right,
+                                spacing: (THEME_SPACE_2)
+                                radio1 = <RadioButtonImage> {
+                                    width: 50, height: 50,
+                                    media: Image,
+                                    image: <Image> { source: dep("crate://self/resources/ducky.png" ) }
+                                }
+                                radio2 = <RadioButtonImage> {
+                                    width: 50, height: 50,
+                                    media: Image,
+                                    image: <Image> { source: dep("crate://self/resources/ducky.png" ) }
+                                }
+                                radio3 = <RadioButtonImage> {
+                                    width: 50, height: 50,
+                                    media: Image,
+                                    image: <Image> { source: dep("crate://self/resources/ducky.png" ) }
+                                }
+                                radio4 = <RadioButtonImage> {
+                                    width: 50, height: 50,
+                                    media: Image,
+                                    image: <Image> { source: dep("crate://self/resources/ducky.png" ) }
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
         }
@@ -554,6 +753,102 @@ impl LiveRegister for App {
 
 impl MatchEvent for App {
     fn handle_actions(&mut self, cx: &mut Cx, actions: &Actions) {
+        let ui = self.ui.clone();
+        ui.radio_button_set(ids!(
+            radios_demo.radio1,
+            radios_demo.radio2,
+            radios_demo.radio3,
+            radios_demo.radio4
+        ))
+        .selected_to_visible(
+            cx,
+            &ui,
+            actions,
+            ids!(
+                radios_demo.radio1,
+                radios_demo.radio2,
+                radios_demo.radio3,
+                radios_demo.radio4
+            ),
+        );
+
+        ui.radio_button_set(ids!(
+            iconradios_demo.radio1,
+            iconradios_demo.radio2,
+            iconradios_demo.radio3,
+            iconradios_demo.radio4
+        ))
+        .selected_to_visible(
+            cx,
+            &ui,
+            actions,
+            ids!(
+                iconradios_demo.radio1,
+                iconradios_demo.radio2,
+                iconradios_demo.radio3,
+                iconradios_demo.radio4
+            ),
+        );
+
+        ui.radio_button_set(ids!(
+            radiotabs_demo.radio1,
+            radiotabs_demo.radio2,
+            radiotabs_demo.radio3,
+            radiotabs_demo.radio4
+        ))
+        .selected_to_visible(
+            cx,
+            &ui,
+            actions,
+            ids!(
+                radiotabs_demo.radio1,
+                radiotabs_demo.radio2,
+                radiotabs_demo.radio3,
+                radiotabs_demo.radio4
+            ),
+        );
+
+        ui.radio_button_set(ids!(
+            textonlyradios_demo.radio1,
+            textonlyradios_demo.radio2,
+            textonlyradios_demo.radio3,
+            textonlyradios_demo.radio4
+        ))
+        .selected_to_visible(
+            cx,
+            &ui,
+            actions,
+            ids!(
+                textonlyradios_demo.radio1,
+                textonlyradios_demo.radio2,
+                textonlyradios_demo.radio3,
+                textonlyradios_demo.radio4
+            ),
+        );
+
+        ui.radio_button_set(ids!(
+            mediaradios_demo.radio1,
+            mediaradios_demo.radio2,
+            mediaradios_demo.radio3,
+            mediaradios_demo.radio4
+        ))
+        .selected_to_visible(
+            cx,
+            &ui,
+            actions,
+            ids!(
+                mediaradios_demo.radio1,
+                mediaradios_demo.radio2,
+                mediaradios_demo.radio3,
+                mediaradios_demo.radio4
+            ),
+        );
+        if let Some(check) = self.ui.check_box(id!(simplecheckbox)).changed(actions) {
+            log!("CHECK BUTTON CLICKED {} {}", self.counter, check);
+            self.counter += 1;
+            let lbl = self.ui.label(id!(simplecheckbox_output));
+            lbl.set_text(cx, &format!("{} {}", self.counter, check));
+        }
         if let Some(txt) = self.ui.text_input(id!(simpletextinput)).changed(actions) {
             log!("TEXTBOX CHANGED {}", self.counter); // output to console
             self.counter += 1;
