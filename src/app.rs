@@ -380,8 +380,46 @@ live_design! {
                     }
                 }
 
+                <ZooHeader> {
+                    title = { text:"<Slider>" }
+                    <ZooDesc> { text:"A parameter dragger" }
+                    <ZooGroup> {
+                        width: Fill, height: Fit,
+                        flow: Right,
+                        spacing: 10.0,
+                        align: { x: 0., y: 0.}
+                        // <View> {
+                        //     width: Fill, height: Fit,
+                        //     flow: Down,
+                        //     <Slider> { text: "Default" }
+                        //     <Slider> { text: "min 0 to max 100", min: 0., max: 100. }
+                        //     <Slider> { text: "precision 7", precision: 4 }  // max precision
+                        //     <Slider> { text: "stepped 0.1", step: 0.1 }
+                        // }
+                        <View> {
+                            width: Fill, height: Fit,
+                            flow: Down,
+                            <SliderBig> { text: "Default 0.2", default: 0.2 }
+                            <SliderBig> { text: "min -50 to max 50", min: -50, max: 50. }
+                            <SliderBig> { text: "precision 8", precision: 8 }   // when greater than 7, auto jump to 16 and won't changed
+                            <SliderBig> { text: "stepped 0.2", step: 0.2 }
+                        }
+                        <View> {
+                            width: Fill, height: Fit,
+                            flow: Down,
+                            <SliderAlt1> {
+                                text: "Colored",
+                                draw_slider: {
+                                    val_color_a: (#FFCC00),
+                                    val_color_b: #f00,
+                            }
+                            }
+                        }
+                    }
 
+                }
             }
+
         }
     }
 }
