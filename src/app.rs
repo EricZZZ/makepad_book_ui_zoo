@@ -434,6 +434,103 @@ live_design! {
                     <ZooDesc> {text:"Place holder for drop down"}
 
                 }
+
+                <ZooHeader> {
+                    title = {text:"<Html>"}
+                    <ZooDesc> {text:"HTML Widget"}
+                    <ZooGroup> {
+                        <Html> {
+                            width:Fill, height:Fit,
+                            body:"<H1>H1 Headline</H1><H2>H2 Headline</H2><H3>H3 Headline</H3><H4>H4 Headline</H4><H5>H5 Headline</H5><H6>H6 Headline</H6>This is <b>bold</b>&nbsp;and <i>italic text</i>.<sep><b><i>Bold italic</i></b>, <u>underlined</u>, and <s>strike through</s> text. <p>This is a paragraph</p> <code>A code block</code>. <br/> And this is a <a href='https://www.google.com/'>link</a><br/><ul><li>lorem</li><li>ipsum</li><li>dolor</li></ul><ol><li>lorem</li><li>ipsum</li><li>dolor</li></ol><br/> <blockquote>Blockquote</blockquote> <pre>pre</pre><sub>sub</sub><del>del</del>"
+                        }
+                    }
+                }
+
+                <ZooHeader> {
+                    title = {text:"<Markdown>"}
+                    <ZooDesc> {text:"Markdown"}
+                    <ZooGroup> {
+                        <Markdown> {
+                            width:Fill, height: Fit,
+                            body:"# Headline 1 \n ## Headline 2 \n ### Headline 3 \n #### Headline 4 \n This is standard text with a  \n\n line break a short ~~strike through~~ demo.\n\n *Italic text* \n\n **Bold text** \n\n - Bullet\n - Another bullet\n\n - Third bullet\n\n 1. Numbered list Bullet\n 2. Another list entry\n\n 3. Third list entry\n\n `Monospaced text`\n\n> This is a quote.\n\nThis is `inline code`.\n\n ```code block
+                            ```"
+                        }
+                    }
+                }
+
+                <ZooHeader> {
+                    title = {text:"<Image>"}
+                    <ZooDesc> {text:"A static inline image from a resource."}
+                    <ZooGroup> {
+                        height: Fit, width: Fill,
+                        spacing: (THEME_SPACE_2)
+                        scroll_bars: <ScrollBars> {}
+                        <View> {
+                            width: Fit, height: Fit, flow: Down,
+                            <View> {
+                                show_bg: true, draw_bg: { color: (THEME_COLOR_BG_CONTAINER)}, width: 125, height: 250, flow: Down,
+                                <Image> { source: dep("crate://self/resources/ducky.png" ) }
+                            }
+                            <P> { text: "Default" }
+                        }
+                        <View> {
+                            width: Fit, height: Fit, flow: Down,
+                            <View> {
+                                show_bg: true, draw_bg: { color: (THEME_COLOR_BG_CONTAINER)}, width: 125, height: 250,
+                                <Image> { height: Fill, source: dep("crate://self/resources/ducky.png" ), min_height: 100 }
+                            }
+                            <P> { text: "min_height: 100" } // TODO: get this to work correctly
+                        }
+                        <View> {
+                            width: Fit, height: Fit, flow: Down,
+                            <View> {
+                                show_bg: true, draw_bg: { color: (THEME_COLOR_BG_CONTAINER)}, width: 125, height: 250,
+                                <Image> { width: Fill, source: dep("crate://self/resources/ducky.png" ), width_scale: 1.5 }
+                            }
+                            <P> { text: "width_scale: 1.5" } // TODO: get this to work correctly
+                        }
+                        <View> {
+                            width: Fit, height: Fit, flow: Down,
+                            <View> {
+                                show_bg: true, draw_bg: { color: (THEME_COLOR_BG_CONTAINER)}, width: 125, height: 250,
+                                <Image> { width: Fill, height: Fill, source: dep("crate://self/resources/ducky.png"), fit: Stretch }
+                            }
+                            <P> { text: "fit: Stretch" }
+                        }
+                        <View> {
+                            width: Fit, height: Fit, flow: Down,
+                            <View> {
+                                show_bg: true, draw_bg: { color: (THEME_COLOR_BG_CONTAINER)}, width: 125, height: 250,
+                                <Image> { width: Fill, height: Fill, source: dep("crate://self/resources/ducky.png" ), fit: Horizontal }
+                            }
+                            <P> { text: "fit: Horizontal" }
+                        }
+                        <View> {
+                            width: Fit, height: Fit, flow: Down,
+                            <View> {
+                                show_bg: true, draw_bg: { color: (THEME_COLOR_BG_CONTAINER)}, width: 125, height: 250,
+                                <Image> { width: Fill, height: Fill, source: dep("crate://self/resources/ducky.png" ), fit: Vertical }
+                            }
+                            <P> { text: "fit: Vertical" }
+                        }
+                        <View> {
+                            width: Fit, height: Fit, flow: Down,
+                            <View> {
+                                show_bg: true, draw_bg: { color: (THEME_COLOR_BG_CONTAINER)}, width: 125, height: 250,
+                                <Image> { width: Fill, height: Fill, source: dep("crate://self/resources/ducky.png" ), fit: Smallest }
+                            }
+                            <P> { text: "fit: Smallest" }
+                        }
+                        <View> {
+                            width: Fit, height: Fit, flow: Down,
+                            <View> {
+                                show_bg: true, draw_bg: { color: (THEME_COLOR_BG_CONTAINER)}, width: 125, height: 250,
+                                <Image> { width: Fill, height: Fill, source: dep("crate://self/resources/ducky.png" ), fit: Biggest }
+                            }
+                            <P> { text: "fit: Biggest" }
+                        }
+                    }
+                }
             }
 
         }
