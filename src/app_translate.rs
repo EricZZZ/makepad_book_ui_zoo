@@ -1,7 +1,4 @@
 use makepad_widgets::*; // Import Makepad Widgets package
-use rdev::{listen, EventType, Key}; // 引入 rdev 库
-use std::sync::mpsc; // 引入 Rust 标准库的通道
-use std::thread; // 引入 Rust 标准库的线程
 
 // Define live_design macro for declaring UI components and layout
 live_design! {
@@ -78,8 +75,7 @@ use link::widgets::*;
 pub struct App {
     #[live]
     ui: WidgetRef,
-    #[rust]
-    receiver: Option<mpsc::Receiver<String>>,
+
     #[rust]
     counter: usize, // 计数器
 }
@@ -101,53 +97,15 @@ impl AppMain for App {
         // 处理 UI 事件
         self.ui.handle_event(cx, event, &mut Scope::empty());
 
-        if let Some(receiver) = &self.receiver {
-            while let Ok(message) = receiver.try_recv() {
-                println!("Received from thread: {}", message);
+        match event {
+            Event::KeyDown(key_event) => {
+                println!("Key pressed: {:?}", key_event.key_code);
             }
+            Event::KeyUp(key_event) => {
+                println!("Key released: {:?}", key_event.key_code);
+            }
+            _ => {}
         }
-
-        // // 创建一个线程用于监听键盘事件
-        // let (sender, receiver) = mpsc::channel();
-        // self.receiver = Some(receiver);
-        // thread::spawn(move || {
-        //     // 这个回调函数会在每次捕获到事件时被调用
-        //     let callback = move |event: rdev::Event| match event.event_type {
-        //         EventType::KeyPress(key) => {
-        //             println!("按下了键盘按键: {:?}", key);
-        //             if let Err(e) = sender.send(key) {
-        //                 println!("发送按下键盘按键消息失败: {:?}", e);
-        //             }
-        //         }
-        //         EventType::KeyRelease(key) => {
-        //             println!("释放了键盘按键: {:?}", key);
-        //             if let Err(e) = sender.send(key) {
-        //                 println!("发送释放键盘按键消息失败: {:?}", e);
-        //             }
-        //         }
-        //         _ => {}
-        //     };
-
-        //     // 启动监听循环。这个函数会阻塞当前线程。
-        //     if let Err(error) = listen(callback) {
-        //         println!("监听过程中发生错误: {:?}", error);
-        //     }
-        //     println!("启动监听线程");
-        // });
-
-        // if let Some(receiver) = &self.receiver {
-        //     while let Ok(received_key) = receiver.try_recv() {
-        //         // 处理接收到的键盘事件
-        //         match received_key {
-        //             Key::Escape => {
-        //                 println!("按下了 ESC 键");
-        //             }
-        //             _ => {
-        //                 println!("按下了其他键: {:?}", received_key);
-        //             }
-        //         }
-        //     }
-        // }
     }
 }
 
@@ -173,57 +131,7 @@ impl MatchEvent for App {
     // 程序启动时调用
     fn handle_startup(&mut self, _cx: &mut Cx) {
         println!("App started");
-        // // 创建线程，线程里开始计数
-        // thread::spawn(move || {
-        //     listen_any_key();
-        // });
-        let (sender, receiver) = mpsc::channel();
-
-        // 将接收端存储在 App 结构体中
-        self.receiver = Some(receiver);
-        // 启动一个新线程，用于监听键盘事件
-        thread::spawn(move || {
-            let callback = move |event: rdev::Event| match event.event_type {
-                EventType::KeyPress(key) => {
-                    println!("按下了键盘按键: {:?}", key);
-                    if let Err(e) = sender.send(format!("Key Pressed: {:?}", key)) {
-                        println!("发送按下键盘按键消息失败: {:?}", e);
-                    }
-                }
-                EventType::KeyRelease(key) => {
-                    println!("释放了键盘按键: {:?}", key);
-                    if let Err(e) = sender.send(format!("Key Released: {:?}", key)) {
-                        println!("发送释放键盘按键消息失败: {:?}", e);
-                    }
-                }
-                _ => {}
-            };
-            // 启动监听循环。这个函数会阻塞当前线程。
-            if let Err(error) = listen(callback) {
-                println!("监听过程中发生错误: {:?}", error);
-            }
-        });
-        println!("App started end");
     }
 }
-
-fn listen_any_key() {
-    // 这个回调函数会在每次捕获到事件时被调用
-    let callback = |event: rdev::Event| match event.event_type {
-        EventType::KeyPress(key) => {
-            println!("按下了键盘按键: {:?}", key);
-        }
-        EventType::KeyRelease(key) => {
-            println!("释放了键盘按键: {:?}", key);
-        }
-        _ => {}
-    };
-
-    // 启动监听循环。这个函数会阻塞当前线程。
-    if let Err(error) = listen(callback) {
-        println!("监听过程中发生错误: {:?}", error);
-    }
-}
-
 // Define application entry point
 app_main!(App);
