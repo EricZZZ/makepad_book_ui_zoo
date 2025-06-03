@@ -4,6 +4,5 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-makepad-widgets = { git = "https://github.com/makepad/makepad", branch = "rik" }
-rdev = "0.5"
+makepad-widgets = {version = "1.0"}
 tokio = { version = "1.0", features = ["full"] }

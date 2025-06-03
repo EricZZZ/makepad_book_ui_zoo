@@ -124,7 +124,7 @@ impl MatchEvent for App {
             let input = self.ui.text_input(id!(input1));
             // 通过文本输入框组件内置的 `set_text`
             // 更新文本输入框的内容为新的计数器值。
-            input.set_text(cx, format!("Counter: {}", self.counter));
+            input.set_text(cx, format!("Counter: {}", self.counter).as_str());
         }
     }
 
